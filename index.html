@@ -37,10 +37,11 @@
                 let msg = document.getElementById("text-to-speech").value;
                 
                 let speech = new SpeechSynthesisUtterance();
-                //speech.lang = "en-AU";
-		speech.lang = 'hi-IN';
-                speech.voiceURI = "com.apple.ttsbundle.Lekha-compact";
                 
+		
+                speech.voiceURI = "com.apple.ttsbundle.Lekha-compact";
+		speech.lang = 'hi-IN';
+                speech.name= "Lekha",
                 speech.text = msg;
                 speech.volume = 1;
                 speech.rate = 1;
