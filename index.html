@@ -27,8 +27,8 @@
 
         btnSpeak.addEventListener('click', ()=> {
             var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
-            var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
-            //var selectedVoiceName = 'Google UK English Female';
+            //var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+            //var selectedVoiceName = 'Lekha';
             voices.forEach((voice)=>{
                 if(voice.name === selectedVoiceName){
                     toSpeak.voice = voice;
@@ -39,13 +39,14 @@
         
         function PopulateVoices(){
             voices = synth.getVoices();
+	    var Lekha="Lekha";
             var selectedIndex = voiceList.selectedIndex < 0 ? 0 : voiceList.selectedIndex;
             voiceList.innerHTML = '';
             voices.forEach((voice)=>{
                 var listItem = document.createElement('option');
-                listItem.textContent = voice.name;
+                listItem.textContent = Lekha;
                 listItem.setAttribute('data-lang', voice.lang);
-                listItem.setAttribute('data-name', voice.name);
+                listItem.setAttribute('data-name', Lekha);
                 voiceList.appendChild(listItem);
             });
 
