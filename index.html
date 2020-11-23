@@ -37,9 +37,9 @@
                 let msg = document.getElementById("text-to-speech").value;
                 
                 let speech = new SpeechSynthesisUtterance();
-                speech.lang = "en-AU";
+                //speech.lang = "en-AU";
                 //speech.voiceURI = "Google हिन्दी";
-                //speech.lang = 'hi-IN';
+                speech.lang = 'hi-IN';
                 speech.text = msg;
                 speech.volume = 1;
                 speech.rate = 1;
