@@ -1,52 +1,56 @@
-<!doctype html>
-	<head>
-		<style>
-			/* CSS comes here */
-			body {
-			    font-family:arial;
-			}
-			input {
-			    padding: 10px;
-			    width: 300px;
-			    border-radius: 5px;
-			    border: solid 2px #BBB;
-			}
-			div {
-			    margin:10px 0px;
-			}
-			button {
-			    padding:10px;
-			    background-color:#6a67ce;
-			    color: #FFFFFF;
-			    border: 0px;
-			    cursor:pointer;
-			    border-radius: 5px;
-			}
-		</style>
-		<title>Pure JavaScript Text to Audio</title>
-	</head>
-	<body>
-	    <h2>JavaScript Text to Speech</h2>
-		<div><input type="text" id="text-to-speech" placeholder="Enter text to speak..."/></div>
-        <div><button type="button" onclick="textToAudio()">Speak</button></div>
-        <br/>
-        <div><small><b>NOTE:</b> Enter text and click on speak button.</small></div>
-		<script>
-			/* JS comes here */
-            function textToAudio() {
-                let msg = document.getElementById("text-to-speech").value;
-                
-                let speech = new SpeechSynthesisUtterance();
-                //speech.lang = "en-AU";
-                //speech.voiceURI = "Google हिन्दी";
-                speech.lang = 'hi-IN';
-                speech.text = msg;
-                speech.volume = 1;
-                speech.rate = 1;
-                speech.pitch = 1;
-                
-                window.speechSynthesis.speak(speech);
-            }
-		</script>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    Select Voice: <select id='voiceList'></select> <br><br>
+
+    <input id='txtInput' /> <br><br>    
+    <button id='btnSpeak'>Speak!</button>
+
+    <script>
+        var txtInput = document.querySelector('#txtInput');
+        var voiceList = document.querySelector('#voiceList');
+        var btnSpeak = document.querySelector('#btnSpeak');
+        var synth = window.speechSynthesis;
+        var voices = [];
+
+        PopulateVoices();
+        if(speechSynthesis !== undefined){
+            speechSynthesis.onvoiceschanged = PopulateVoices;
+        }
+
+        btnSpeak.addEventListener('click', ()=> {
+            var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
+            var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+            //var selectedVoiceName = 'Google UK English Female';
+            voices.forEach((voice)=>{
+                if(voice.name === selectedVoiceName){
+                    toSpeak.voice = voice;
+                }
+            });
+            synth.speak(toSpeak);
+        });
+        
+        function PopulateVoices(){
+            voices = synth.getVoices();
+            var selectedIndex = voiceList.selectedIndex < 0 ? 0 : voiceList.selectedIndex;
+            voiceList.innerHTML = '';
+            voices.forEach((voice)=>{
+                var listItem = document.createElement('option');
+                listItem.textContent = voice.name;
+                listItem.setAttribute('data-lang', voice.lang);
+                listItem.setAttribute('data-name', voice.name);
+                voiceList.appendChild(listItem);
+            });
+
+            voiceList.selectedIndex = selectedIndex;
+        }
+    </script>
+</body>
 </html>
