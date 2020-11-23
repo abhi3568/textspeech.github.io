@@ -27,7 +27,7 @@
 
         btnSpeak.addEventListener('click', ()=> {
             var toSpeak = new SpeechSynthesisUtterance(txtInput.value);
-            var selectedVoiceName = voiceList.selectedOptions[28].getAttribute('Lekha');
+            var selectedVoiceName = voiceList.selectedOptions[28].getAttribute('data-name');
             //var selectedVoiceName = 'Google UK English Female';
             voices.forEach((voice)=>{
                 if(voice.name === selectedVoiceName){
